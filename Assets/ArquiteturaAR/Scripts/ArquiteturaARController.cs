@@ -14,6 +14,7 @@ public class ArquiteturaARController : MonoBehaviour
     public Toggle toggleWalls;
     public Toggle toggleWindows;
     public Toggle toggleDoors;
+    public ARPlaneManager planeManager;
 
     private GameObject[] externalWalls;
     private GameObject[] roof;
@@ -186,7 +187,6 @@ public class ArquiteturaARController : MonoBehaviour
 
     void SetAllPlanesActive(bool value)
     {
-        var planeManager = GetComponent<ARPlaneManager>();
         foreach (var plane in planeManager.trackables)
         {
             plane.gameObject.SetActive(value);
