@@ -20,12 +20,10 @@ public class ArquiteturaARController : MonoBehaviour
     private GameObject[] roof;
     private GameObject[] windows;
     private GameObject[] doors;
-    private ARPlaneManager m_ARPlaneManager;
     private bool isPlaneActive;
 
     private void Start()
     {
-        m_ARPlaneManager = GetComponent<ARPlaneManager>();
         isPlaneActive = true;
     }
 
@@ -56,6 +54,7 @@ public class ArquiteturaARController : MonoBehaviour
         toggleDoors.isOn = true;
         toggleWindows.isOn = true;
         Destroy(GameObject.FindGameObjectWithTag("casa"));
+        SetAllPlanesActive(true);
     }
 
     public void ShowRoof(bool value)
@@ -176,20 +175,27 @@ public class ArquiteturaARController : MonoBehaviour
         if (isPlaneActive)
         {
             SetAllPlanesActive(false);
-            isPlaneActive = false;
         }
         else
         {
             SetAllPlanesActive(true);
-            isPlaneActive = true;
         }
     }
 
-    void SetAllPlanesActive(bool value)
+    public void SetAllPlanesActive(bool value)
     {
+        isPlaneActive = value;
         foreach (var plane in planeManager.trackables)
         {
             plane.gameObject.SetActive(value);
+        }
+    }
+
+    private void Update()
+    {
+        if (!isPlaneActive)
+        {
+            SetAllPlanesActive(false);
         }
     }
 }
